@@ -33,16 +33,17 @@ async function createList() {
 async function onSelect(evt) {
   catInfo.classList.add('is-hidden');
   select.classList.add('is-hidden');
+  loader.classList.remove('is-hidden');
 
   const selectBreedId = evt.currentTarget.value;
   try {
     const data = await fetchCatByBreed(selectBreedId);
     creteMarkup(data);
+  } catch (err) {
+    Notify.failure('Oops! Something went wrong! Try reloading the page!');
+  } finally {
     loader.classList.add('is-hidden');
     catInfo.classList.remove('is-hidden');
-  } catch (err) {
-    loader.classList.add('is-hidden');
-    Notify.failure('Oops! Something went wrong! Try reloading the page!');
   }
 }
 
